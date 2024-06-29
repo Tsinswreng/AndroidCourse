@@ -1,8 +1,7 @@
-import { Server } from "server";
-
-const server = Server.new()
+import { Server } from "./server";
 
 async function main(){
+	const server = await Server.New()
 	await server.start()
 }
 
