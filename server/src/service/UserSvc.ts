@@ -1,6 +1,6 @@
 import { mysqlConneOpt } from "../ENV";
 import { DbErr, MysqlPromise } from "../MySqlPromise";
-import { DbSrc } from "./DbSrc";
+import { DbSrc } from "../db/DbSrc";
 
 export class UserSvc{
 	protected constructor(){}

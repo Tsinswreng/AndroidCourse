@@ -1,6 +1,6 @@
 import { mysqlConneOpt } from "../ENV";
 import { DbErr, MysqlPromise } from "../MySqlPromise";
-import { DbSrc } from "../service/DbSrc";
+import { DbSrc } from "../db/DbSrc";
 
 async function main(){
 	try {
