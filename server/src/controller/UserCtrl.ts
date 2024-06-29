@@ -27,9 +27,24 @@ export class UserCtrl{
 	
 	async initRouter(){
 		const z = this
-		z.router.post('/login', (req,res)=>{
-			res.send('114')
+		z.router.post('/login', async(req,res)=>{
+			try {
+				const name = req.body['name']
+				const pswd = req.body['pswd']
+				if(typeof name !== 'string' || typeof pswd !== 'string'){
+					res.status(400).send('login failed')
+					return 
+				}
+				const ans = await z.svc.login(name, pswd)
+				console.log(ans)
+				res.status(200).send(ans)
+			} catch (error) {
+				console.error(error)
+			}
+
 		})
+
+
 		z.router.get('/test', (req,res)=>{
 			res.send('test')
 		})

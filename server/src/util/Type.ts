@@ -33,6 +33,6 @@ export type PrimitiveTypeStr = 'number' | 'string' | 'boolean' | 'null' | 'undef
 type Result = KeyAsValue<A>
 Result === {a:'a', b:'b', c:'c', d:'d'}
  */
-export type KeyAsValue<T> = {
+export type KeyMirror<T> = {
 	[K in keyof T]: K;
 }

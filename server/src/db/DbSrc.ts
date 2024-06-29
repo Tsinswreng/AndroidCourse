@@ -1,4 +1,4 @@
-import { InstanceType_, KeyAsValue } from '../util/Type'
+import { InstanceType_, KeyMirror } from '../util/Type'
 import * as Row from '../model/DbRows'
 import * as Mod from '../model/Models'
 import mysql from 'mysql';
@@ -181,7 +181,7 @@ export class DbSrc{
 		const tbl = z.tbls.user
 		const c = tbl.col
 		const sql = 
-`SELECT * FROM ${c.name} WHERE ${c.name} = ?`
+`SELECT * FROM ${tbl.name} WHERE ${c.name} = ?`
 		const params = [name]
 		const [row, ] = await MysqlPromise.query<Row.User[]>(z.db, sql, params)
 		return row
