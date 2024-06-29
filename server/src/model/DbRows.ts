@@ -10,7 +10,6 @@ export class User extends Row{
 }
 
 
-
 export class Article extends Row{
 	id:int
 	title:str

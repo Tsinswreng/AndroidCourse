@@ -1,7 +1,7 @@
-//@ts-check
 import express from 'express'
 import bodyParser from "body-parser";
 import { UserCtrl } from './controller/UserCtrl';
+import Tempus from './util/Time';
 
 export class Server{
 	protected constructor(){}
@@ -28,11 +28,11 @@ export class Server{
 	
 	async initRoutes(){
 		const z = this
-		z.app.get('/', (req, res)=>{
-			res.send('<h1>114514</h1>')
+		z.app.get('/unixMills', (req, res)=>{
+			res.send(Tempus.toISO8601(Tempus.new()))
 		})
 		const userCtrl = await UserCtrl.New()
-		z.app.use(userCtrl.router)
+		z.app.use('/user', userCtrl.router)
 	}
 
 	initUse(){
@@ -46,6 +46,7 @@ export class Server{
 			next()
 		})
 		//z.app.use(express.static('./out/frontend/dist'));
+		z.app.use(express.json());
 		z.app.use(bodyParser.json({limit:'64MB'}))
 	}
 

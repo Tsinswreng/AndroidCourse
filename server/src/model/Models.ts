@@ -1,20 +1,20 @@
 import Tempus from '../util/Time'
 import * as Row from './DbRows'
 import { As } from '../util/Ut'
-import { InstanceType_, KeyAsValue } from '../util/Type'
+import { InstanceType_, KeyMirror } from '../util/Type'
 
 function assign(a,b){
 	return Object.assign(a,b)
 }
 
 
-function keyAsValue<T extends kvobj>(obj:T){
+function keyMirror<T extends kvobj>(obj:T){
 	const ans = {}
 	const keys = Object.keys(obj)
 	for(const k of keys){
 		ans[k] = k
 	}
-	return ans as KeyAsValue<T>
+	return ans as KeyMirror<T>
 }
 
 
@@ -35,9 +35,6 @@ export class BaseInst<RowT extends Row.Row>{
 	correctRow(row:RowT):RowT{
 		return row
 	}
-	a():InstanceType_<typeof this.Row>{
-		return void 0 as any
-	}
 }
 
 export class BaseFactory<
@@ -49,10 +46,10 @@ export class BaseFactory<
 	Row:typeof Row.Row = Row.Row
 	//col = keyAsValue(neow this.Row()) as KeyAsValue<RowT>
 	//繼承時 先初始化父類中 直接賦值ʹ字段
-	col:KeyAsValue<RowT>
+	col:KeyMirror<RowT>
 	protected constructor(){}
 	protected __init__(){
-		this.col = keyAsValue(new this.Row()) as KeyAsValue<RowT> //晚初始化
+		this.col = keyMirror(new this.Row()) as KeyMirror<RowT> //晚初始化
 	}
 	static new(){
 		const z = new this()
