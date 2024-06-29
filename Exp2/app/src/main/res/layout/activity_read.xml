@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back5_read"
+    android:padding="16dp">
+
+    <!-- 标题栏（模拟） -->
+    <TextView
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="阅读器"
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:background="#FF9800"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/lishu"
+        android:padding="8dp"/>
+
+    <!-- 章节标题 -->
+    <TextView
+        android:id="@+id/chapterTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="第1章 宴桃园豪杰三结义 斩黄巾英雄首立功"
+        android:textSize="18sp"
+        android:layout_below="@id/titleBar"
+        android:layout_marginTop="8dp"
+        android:padding="40dp"/>
+
+    <!-- 文本内容（使用ScrollView来包裹TextView以支持滚动） -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chapterTitle"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/textViewContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="滚滚长江东逝水，浪花淘尽英雄。是非成败,转头空。...\n...\n..."
+            android:textSize="16sp"
+            android:padding="40dp"/>
+
+    </ScrollView>
+
+    <!-- 可能的导航控件（例如“上一章”、“下一章”按钮，这里仅作为示例） -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/prevChapterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lishu"
+            android:textSize="20sp"
+            android:text="上一章"/>
+
+        <Button
+            android:id="@+id/nextChapterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lishu"
+            android:textSize="20sp"
+            android:text="下一章"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

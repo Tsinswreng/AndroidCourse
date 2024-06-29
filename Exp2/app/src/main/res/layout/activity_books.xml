@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- RecyclerView for book covers -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewBooks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/welcomeTextView"
+        android:padding="16dp"
+        android:orientation="horizontal"/>
+
+    <!-- Welcome message -->
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="Welcome abc"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"/> <!-- Initially hidden, will be shown on login -->
+
+</RelativeLayout>
