@@ -46,6 +46,8 @@
 		"rootDir": "./src",//限定 TypeScript 编译器的搜索范围。若不設潙./src則${out}下還會有一個src目錄
 		"baseUrl": "./src",//用于解析模块导入路径的基础路径
 		"paths": {
+			"@/*": ["../*"],
+			"@src/*": ["./*"],
 			"@root/*": ["../*"],
 			//"*":["src/shared/*"],
 			"@shared/*": ["shared/*"], //不能不寫/*
