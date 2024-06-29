@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/back2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 标题 -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册新账户"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/lishu"
+            android:textColor="@android:color/black"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="3"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- 用户名输入框 -->
+        <EditText
+            android:id="@+id/editTextUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入您要注册的用户名"
+            android:fontFamily="@font/lishu"
+            android:textSize="20sp"
+            android:inputType="text"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"/>
+
+        <!-- 密码输入框 -->
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入密码"
+            android:fontFamily="@font/lishu"
+            android:textSize="20sp"
+            android:inputType="textPassword"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"/>
+
+        <!-- 确认密码输入框 -->
+        <EditText
+            android:id="@+id/editTextConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请再次输入密码"
+            android:fontFamily="@font/lishu"
+            android:textSize="20sp"
+            android:inputType="textPassword"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"/>
+
+        <!-- 性别单选题 -->
+        <TextView
+            android:id="@+id/textViewGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性别"
+            android:textSize="20sp"
+            android:fontFamily="@font/lishu"
+            android:textColor="@android:color/black"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男"
+                android:textSize="18sp"
+                android:fontFamily="@font/lishu"
+                android:textColor="@android:color/black"
+                android:layout_marginEnd="16dp"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女"
+                android:textSize="18sp"
+                android:fontFamily="@font/lishu"
+                android:textColor="@android:color/black"/>
+        </RadioGroup>
+
+        <!-- 阅读爱好多选题 -->
+        <TextView
+            android:id="@+id/textViewHobbies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lishu"
+            android:text="阅读爱好"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
+
+            <CheckBox
+                android:id="@+id/checkBoxRomance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lishu"
+                android:text="言情"
+                android:textColor="@android:color/black"
+                android:background="@drawable/edit_text_background"
+                android:textSize="18sp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxSciFi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lishu"
+                android:text="科幻"
+                android:textColor="@android:color/black"
+                android:background="@drawable/edit_text_background"
+                android:textSize="18sp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxDetective"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lishu"
+                android:text="侦探"
+                android:textColor="@android:color/black"
+                android:background="@drawable/edit_text_background"
+                android:textSize="18sp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lishu"
+                android:text="历史"
+                android:textColor="@android:color/black"
+                android:background="@drawable/edit_text_background"
+                android:textSize="18sp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxLogic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lishu"
+                android:text="逻辑"
+                android:textColor="@android:color/black"
+                android:background="@drawable/edit_text_background"
+                android:textSize="18sp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxScreenplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lishu"
+                android:text="电视剧本"
+                android:textColor="@android:color/black"
+                android:background="@drawable/edit_text_background"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <!-- 注册按钮 -->
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:fontFamily="@font/lishu"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_background"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="24dp"
+            android:textColor="@android:color/white"
+            android:elevation="4dp"/>
+    </LinearLayout>
+</ScrollView>
