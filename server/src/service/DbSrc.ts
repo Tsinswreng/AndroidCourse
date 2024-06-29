@@ -183,7 +183,7 @@ export class DbSrc{
 		const sql = 
 `SELECT * FROM ${c.name} WHERE ${c.name} = ?`
 		const params = [name]
-		const [row, ] = await MysqlPromise.query<Row.User>(z.db, sql, params)
+		const [row, ] = await MysqlPromise.query<Row.User[]>(z.db, sql, params)
 		return row
 	}
 

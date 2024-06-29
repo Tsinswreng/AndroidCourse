@@ -1,17 +1,18 @@
 //@ts-check
 import express from 'express'
 import bodyParser from "body-parser";
+import { UserCtrl } from './controller/UserCtrl';
 
 export class Server{
 	protected constructor(){}
-	protected __init__(...args: Parameters<typeof Server.new>){
+	protected async __Init__(...args: Parameters<typeof Server.New>){
 		const z = this
 		return z
 	}
 
-	static new(){
+	static async New(){
 		const z = new this()
-		z.__init__()
+		await z.__Init__()
 		return z
 	}
 
@@ -25,11 +26,13 @@ export class Server{
 	get port(){return this._port}
 	set port(v){this._port = v}
 	
-	initRoutes(){
+	async initRoutes(){
 		const z = this
 		z.app.get('/', (req, res)=>{
 			res.send('<h1>114514</h1>')
 		})
+		const userCtrl = await UserCtrl.New()
+		z.app.use(userCtrl.router)
 	}
 
 	initUse(){
@@ -49,7 +52,7 @@ export class Server{
 	async start(){
 		const z = this
 		z.initUse()
-		z.initRoutes()
+		await z.initRoutes()
 		z.app.listen(z.port, ()=>{
 			console.log(z.port)
 		})
