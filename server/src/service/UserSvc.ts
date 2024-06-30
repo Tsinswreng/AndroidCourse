@@ -1,4 +1,4 @@
-import { mysqlConneOpt } from "../ENV";
+import { mysqlConneOpt, dbPromise } from "../ENV";
 import { DbErr, MysqlPromise } from "../MySqlPromise";
 import { DbSrc } from "../db/DbSrc";
 
@@ -6,7 +6,7 @@ export class UserSvc{
 	protected constructor(){}
 	protected async __Init__(...args: Parameters<typeof UserSvc.New>){
 		const z = this
-		const db = await MysqlPromise.connect(mysqlConneOpt)
+		const db = await dbPromise
 		const dbSrc = DbSrc.new(db)
 		z.dbSrc = dbSrc
 		return z

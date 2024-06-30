@@ -98,6 +98,7 @@ class InitSql{
 `CREATE TABLE IF NOT EXISTS ${tbl.name}(
 	${c.id} INT AUTO_INCREMENT PRIMARY KEY
 	,${c.title} VARCHAR(255)
+	,${c.author} VARCHAR(255)
 	,${c.content} TEXT
 	,${c.ct} BIGINT
 )`
@@ -187,6 +188,24 @@ export class DbSrc{
 		return row
 	}
 
+	async addArticle(inst:Mod.Article){
+		const z = this
+		const tbl = z.tbls.article
+		const c = tbl.col
+		const sql = 
+`INSERT INTO ${tbl.name} (${c.title}, ${c.author}, ${c.content}, ${c.ct}) VALUES(?,?,?,?)`
+		const row = inst.toRow()
+		const params = [row.title, row.author, row.content, row.ct]
+		return await MysqlPromise.query(z.db, sql, params)
+	}
 
-	
+	async getAllArticle(){
+		const z = this
+		const tbl = z. tbls.article
+		const sql = 
+`SELECT * FROM ${tbl.name}`
+		const [ans ] = await MysqlPromise.query<Row.Article[]>(z.db, sql)
+		return ans
+	}
+
 }

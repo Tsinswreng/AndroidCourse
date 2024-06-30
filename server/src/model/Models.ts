@@ -1,7 +1,7 @@
 import Tempus from '../util/Time'
 import * as Row from './DbRows'
 import { As } from '../util/Ut'
-import { InstanceType_, KeyMirror } from '../util/Type'
+import { InstanceType_, KeyMirror, PubNonFuncProp } from '../util/Type'
 
 function assign(a,b){
 	return Object.assign(a,b)
@@ -16,8 +16,6 @@ function keyMirror<T extends kvobj>(obj:T){
 	}
 	return ans as KeyMirror<T>
 }
-
-
 
 
 export class BaseInst<RowT extends Row.Row>{
@@ -56,7 +54,7 @@ export class BaseFactory<
 		z.__init__()
 		return z
 	}
-	new(prop:InstT):InstT{
+	new(prop:PubNonFuncProp<InstT>):InstT{
 		const z = this
 		const ans = new z.Inst()
 		assign(ans, prop)
@@ -108,6 +106,7 @@ class ArticleInst extends BaseInst<Row.Article>{
 	override get Row(){return Row.Article}
 	id:int
 	title:str
+	author:str
 	content:str
 	ct:Tempus
 	override correctRow(row: Row.Article): Row.Article {
