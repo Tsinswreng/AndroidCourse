@@ -41,10 +41,8 @@
             android:id="@+id/textViewContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="滚滚长江东逝水，浪花淘尽英雄。是非成败,转头空。...\n...\n..."
             android:textSize="16sp"
             android:padding="40dp"/>
-
     </ScrollView>
 
     <!-- 可能的导航控件（例如“上一章”、“下一章”按钮，这里仅作为示例） -->
@@ -72,6 +70,14 @@
             android:textSize="20sp"
             android:text="下一章"/>
 
+        <Button
+            android:id="@+id/commentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lishu"
+            android:textSize="20sp"
+            android:text="评论"
+            android:layout_marginStart="16dp"/>
     </LinearLayout>
 
 </RelativeLayout>
