@@ -36,3 +36,32 @@ Result === {a:'a', b:'b', c:'c', d:'d'}
 export type KeyMirror<T> = {
 	[K in keyof T]: K;
 }
+
+
+/* 
+除函數外、取對象ʹ䀬ʹ鍵ʹ聯合類型
+for(const K of T){
+	if(T[K] extends Function){
+		return never
+	}else{
+		return K
+	}
+}
+最後 [keyof T] 用于提取映射类型中的值并形成联合类型 卒得 "key1"|"key2"...
+只取公開者
+含 訪問器與修改器
+*/
+export type PubNonFuncKeys<T> = {
+	/* for */[K in keyof T]: //{
+		/* if */T[K] extends Function ? 
+		/* then return */never 
+		/* else return */: K
+	//}
+}[keyof T];
+
+/** 
+ * 除函數外、對象ʹ䀬ʹ鍵ˋʃ成對象ʹ類型ˇ取
+ * 只取公開者
+ * 含 訪問器與修改器
+ */
+export type PubNonFuncProp<T> = Pick<T, PubNonFuncKeys<T>>;

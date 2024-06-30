@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from "body-parser";
 import { UserCtrl } from './controller/UserCtrl';
 import Tempus from './util/Time';
+import { ArticleCtrl } from './controller/ArticleCtrl';
 
 export class Server{
 	protected constructor(){}
@@ -32,7 +33,9 @@ export class Server{
 			res.send(Tempus.toISO8601(Tempus.new()))
 		})
 		const userCtrl = await UserCtrl.New()
-		z.app.use('/user', userCtrl.router)
+		z.app.use('/user', userCtrl.router);
+		z.app.use('/article', (await ArticleCtrl.New()).router)
+		
 	}
 
 	initUse(){

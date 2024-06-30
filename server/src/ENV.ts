@@ -1,3 +1,4 @@
+import { DbErr, MysqlPromise } from "./MySqlPromise";
 export const mysqlConneOpt = {
 	host: 'localhost',
 	user: 'root', 
@@ -5,3 +6,4 @@ export const mysqlConneOpt = {
 	database: 'dbcourse'
 }
 
+export const dbPromise = MysqlPromise.connect(mysqlConneOpt)

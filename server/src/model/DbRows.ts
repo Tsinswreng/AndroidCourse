@@ -13,6 +13,7 @@ export class User extends Row{
 export class Article extends Row{
 	id:int
 	title:str
+	author:str
 	content:str
 	ct:int
 }
@@ -25,3 +26,21 @@ export class Comment extends Row{
 	score:int
 	ct:int
 }
+
+
+
+// class A{
+// 	a:int
+// 	b:str
+// 	c:bool
+// }
+
+// function fn(prop:A){
+
+// }
+
+// fn({
+// 	a:1
+// 	,b:'1'
+// 	,c:true
+// })
