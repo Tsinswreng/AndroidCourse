@@ -2,33 +2,34 @@ package com.tsinswreng.exp2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
-import android.widget.Button
-import android.widget.EditText
-
-import com.tsinswreng.exp2.tswg.Http
-import com.tsinswreng.exp2.tswg.Client
-import kotlinx.coroutines.runBlocking
-
-
+import android.widget.Toast
 class MainActivity : AppCompatActivity() {
-
+	private lateinit var position: Position
+	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_login)
-
-
-		// 获取用户名输入框和登录按钮的引用
-		val editTextUsername = findViewById<EditText>(R.id.editTextUsername)
-		val buttonLogin = findViewById<Button>(R.id.buttonLogin)
-
-		// 设置登录按钮的点击监听器
-		buttonLogin.setOnClickListener {
-			// 获取用户名输入框的内容
-			val username = editTextUsername.text.toString()
-			// 打印用户名到控制台
-			println("用户名: $username")
+		// 初始化 Position 对象
+		position = Position(this)
+		// 请求位置信息
+		position.getLocation { latitude, longitude ->
+			Toast.makeText(this, "Latitude: $latitude, Longitude: $longitude", Toast.LENGTH_LONG).show()
+			println("zzzz-")
+			println(latitude)
+			println(longitude)
 		}
-
+		
 	}
+	
+	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+		
+		// 将权限结果传递给 Position 对象，并重新尝试获取位置信息
+		position.onRequestPermissionsResult(requestCode, grantResults) { latitude, longitude ->
+			Toast.makeText(this, "Latitude: $latitude, Longitude: $longitude", Toast.LENGTH_LONG).show()
+		}
+	}
+	
+
+
 }
