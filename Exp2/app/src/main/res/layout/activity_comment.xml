@@ -1,6 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back5_read"
+
     android:padding="16dp">
 
     <!-- 标题栏（模拟） -->
@@ -62,6 +64,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewCommentSection"
         android:layout_marginTop="16dp"
-        android:padding="12dp"/>
+        android:padding="16dp"/>
 
 </RelativeLayout>
