@@ -34,9 +34,9 @@ export class UserSvc{
 		const user = got[0]
 		if(user.password === pswd){
 			//登錄成功
-			return true
+			return user.password
 		}else{
-			return false
+			return ""
 		}
 	}
 

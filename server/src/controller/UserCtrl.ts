@@ -32,12 +32,16 @@ export class UserCtrl{
 				const name = req.body['name']
 				const pswd = req.body['pswd']
 				if(typeof name !== 'string' || typeof pswd !== 'string'){
-					res.status(400).send('login failed')
+					res.status(403).send('login failed')
 					return 
 				}
 				const ans = await z.svc.login(name, pswd)
-				console.log(ans)
+				if(ans === ""){
+					res.status(403).send('login failed')
+					return
+				}
 				res.status(200).send(ans)
+				return
 			} catch (error) {
 				console.error(error)
 			}
