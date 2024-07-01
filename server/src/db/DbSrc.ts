@@ -171,7 +171,7 @@ export class DbSrc{
 		const tbl = z.tbls.user
 		const c = tbl.col
 		const sql = 
-`INSERT INTO ${c.name} (${c.name}, ${c.password}, ${c.ct}) VALUES(?,?,?)`
+`INSERT INTO ${tbl.name} (${c.name}, ${c.password}, ${c.ct}) VALUES(?,?,?)`
 		const row = inst.toRow()
 		const params = [row.name, row.password, row.ct]
 		return await MysqlPromise.query(z.db, sql, params)
