@@ -13,6 +13,29 @@
     <color name="hint_text">#FFA7A19C</color>
 
 
+    <!-- 基本的颜色 -->
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF00FF00</color>
+    <color name="blue">#FF0000FF</color>
 
+    <!-- 灰色系 -->
+    <color name="gray_dark">#FF808080</color>
+    <color name="gray_medium">#FFA9A9A9</color>
+    <color name="gray_light">#FFDDDDDD</color>
+
+    <!-- 蓝色系 -->
+    <color name="blue_dark">#FF00008B</color>
+    <color name="blue_sky">#FF00BFFF</color>
+    <color name="blue_light">#FFADD8E6</color>
+
+    <!-- 其他颜色 -->
+    <color name="yellow">#FFFFFF00</color>
+    <color name="orange">#FFFFA500</color>
+    <color name="purple">#FF800080</color>
+    <color name="pink">#FFFFC0CB</color>
+
+    <!-- 透明度 -->
+    <color name="half_transparent_black">#80000000</color> <!-- 50% 透明度的黑色 -->
+    <color name="quarter_transparent_white">#40FFFFFF</color> <!-- 25% 透明度的白色 -->
 
 </resources>
