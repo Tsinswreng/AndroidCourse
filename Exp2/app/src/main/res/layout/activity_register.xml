@@ -128,65 +128,83 @@
             android:orientation="vertical"
             android:layout_marginBottom="20dp">
 
-            <CheckBox
-                android:id="@+id/checkBoxRomance"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lishu"
-                android:text="言情"
-                android:textColor="@android:color/black"
-                android:background="@drawable/edit_text_background"
-                android:textSize="18sp"/>
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                android:weightSum="3">
 
-            <CheckBox
-                android:id="@+id/checkBoxSciFi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lishu"
-                android:text="科幻"
-                android:textColor="@android:color/black"
-                android:background="@drawable/edit_text_background"
-                android:textSize="18sp"/>
+                <CheckBox
+                    android:id="@+id/checkBoxRomance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lishu"
+                    android:text="言情"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"/>
 
-            <CheckBox
-                android:id="@+id/checkBoxDetective"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lishu"
-                android:text="侦探"
-                android:textColor="@android:color/black"
-                android:background="@drawable/edit_text_background"
-                android:textSize="18sp"/>
+                <CheckBox
+                    android:id="@+id/checkBoxSciFi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lishu"
+                    android:text="科幻"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"/>
 
-            <CheckBox
-                android:id="@+id/checkBoxHistory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lishu"
-                android:text="历史"
-                android:textColor="@android:color/black"
-                android:background="@drawable/edit_text_background"
-                android:textSize="18sp"/>
+                <CheckBox
+                    android:id="@+id/checkBoxDetective"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lishu"
+                    android:text="侦探"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"/>
 
-            <CheckBox
-                android:id="@+id/checkBoxLogic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lishu"
-                android:text="逻辑"
-                android:textColor="@android:color/black"
-                android:background="@drawable/edit_text_background"
-                android:textSize="18sp"/>
+            </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/checkBoxScreenplay"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lishu"
-                android:text="电视剧本"
-                android:textColor="@android:color/black"
-                android:background="@drawable/edit_text_background"
-                android:textSize="18sp"/>
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <CheckBox
+                    android:id="@+id/checkBoxHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lishu"
+                    android:text="历史"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxLogic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lishu"
+                    android:text="逻辑"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxScreenplay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lishu"
+                    android:text="电视剧本"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <!-- 注册按钮 -->
