@@ -1,4 +1,4 @@
-package com.tsinswreng.exp2.svc
+package com.tsinswreng.exp2.models
 
 class User {
 	companion object{

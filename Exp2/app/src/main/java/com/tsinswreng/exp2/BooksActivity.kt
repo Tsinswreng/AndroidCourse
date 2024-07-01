@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.TextView
+import com.tsinswreng.exp2.models.Article
 import kotlinx.coroutines.*
+import com.tsinswreng.exp2.tswg.Client
 
 class BooksActivity : AppCompatActivity() {
+    val client = Client()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_books)
@@ -18,7 +21,7 @@ class BooksActivity : AppCompatActivity() {
         
         // 显示欢迎信息
         val welcomeTextView = findViewById<TextView>(R.id.welcomeTextView)
-        welcomeTextView.text = "Welcome $username"
+        welcomeTextView.text = "欢迎您 $username"
         welcomeTextView.visibility = TextView.VISIBLE
         
         // 初始化RecyclerView
@@ -28,29 +31,39 @@ class BooksActivity : AppCompatActivity() {
         // 加载书籍列表数据
         GlobalScope.launch(Dispatchers.Main) {
             val booksList = fetchBooksListFromServer()
-            recyclerViewBooks.adapter = BookAdapter(booksList) { bookTitle ->
+            recyclerViewBooks.adapter = BookAdapter(booksList) { bookId ->
                 // 书籍点击事件，跳转到 ReadActivity
                 val readIntent = Intent(this@BooksActivity, ReadActivity::class.java).apply {
-                    putExtra("BOOK_TITLE", bookTitle)
+//                    println("zzzz")
+//                    println(bookId)
+                    putExtra("BOOK_ID", bookId.toString())
+                    //putExtra("BOOK_TITLE", bookTitle)
                 }
                 startActivity(readIntent)
             }
         }
     }
     
-    private suspend fun fetchBooksListFromServer(): List<Pair<String, String>> {
+    private suspend fun fetchBooksListFromServer(): List<Article> {
+        val z = this
         return withContext(Dispatchers.IO) {
-            // 模拟从服务器获取数据，实际应用中使用网络请求库（如 Retrofit）
-            // 以下仅为模拟数据
-            Thread.sleep(2000) // 模拟网络延迟
-            listOf(
-                "Book 1" to "Author A",
-                "Book 2" to "Author B",
-                "Book 3" to "Author C",
-                "Book 4" to "Author D",
-                "Book 5" to "Author E",
-                "Book 6" to "Author F"
-            )
+            val articles = z.client.getAllArticle()
+            Article.curArticles = articles.toMutableList()
+//            val ans = mutableListOf<Pair<String, String>>()
+//            for(obj in articles){
+//                val pair = Pair(obj.title, obj.author)
+//                ans.add(pair)
+//            }
+//            ans
+            articles
+//            listOf(
+//                "Book 1" to "Author A",
+//                "Book 2" to "Author B",
+//                "Book 3" to "Author C",
+//                "Book 4" to "Author D",
+//                "Book 5" to "Author E",
+//                "Book 6" to "Author F"
+//            )
         }
     }
 }

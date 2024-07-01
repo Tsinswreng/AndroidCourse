@@ -19,7 +19,7 @@ import io.ktor.http.contentType
 class Http {
 	val client = HttpClient(CIO)
 	private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-	fun strGet(url: String): Deferred<String> {
+	fun getStr(url: String): Deferred<String> {
 		return scope.async(Dispatchers.IO) {
 			try {
 				val response = client.get(url)

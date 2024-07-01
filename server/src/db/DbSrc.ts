@@ -199,6 +199,10 @@ export class DbSrc{
 		return await MysqlPromise.query(z.db, sql, params)
 	}
 
+	/**
+	 * 帶正文
+	 * @returns 
+	 */
 	async getAllArticle(){
 		const z = this
 		const tbl = z. tbls.article
@@ -206,6 +210,17 @@ export class DbSrc{
 `SELECT * FROM ${tbl.name}`
 		const [ans ] = await MysqlPromise.query<Row.Article[]>(z.db, sql)
 		return ans
+	}
+
+	/**
+	 * 不帶正文
+	 */
+	async getAllArticleInfo(){
+
+	}
+
+	async seekArticleById(){
+		
 	}
 
 }

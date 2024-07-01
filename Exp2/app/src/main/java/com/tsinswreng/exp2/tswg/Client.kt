@@ -1,6 +1,8 @@
 package com.tsinswreng.exp2.tswg
 import com.google.gson.Gson
-import com.tsinswreng.exp2.svc.User
+import com.google.gson.reflect.TypeToken
+import com.tsinswreng.exp2.models.Article
+import com.tsinswreng.exp2.models.User
 import io.ktor.client.statement.bodyAsText
 
 
@@ -18,6 +20,7 @@ class Client {
 	}
 	val http = Http()
 	var baseUrl = "http://10.0.2.2:3000"
+	val gson = Gson()
 	suspend fun login(name:String, pswd:String):Boolean{
 		val map = mapOf(
 			"name" to name
@@ -46,7 +49,6 @@ class Client {
 			"name" to name
 			,"pswd" to pswd
 		)
-		val gson = Gson()
 		val json = gson.toJson(map)
 		val got = http.post(baseUrl+"/user/signUp", json).await()
 		val status = got.status.value
@@ -62,6 +64,17 @@ class Client {
 		user.pswd = pswd
 		user.token = token
 		return true
+	}
+	
+	suspend fun getAllArticle():List<Article>{
+		val json = http.getStr(baseUrl+"/article/allArticle").await()
+		//gson.fromJson<List<Article>>(json, Article::class.java)
+//TypeToken 是 Gson 提供的一个辅助类，用于在运行时保留泛型类型信息。
+//object : TypeToken<List<Article>>() {} 语法用于创建一个继承自 TypeToken<List<Article>> 的匿名对象。
+//.type 属性用于从 TypeToken 实例中获取泛型类型的 Type 对象。这个 Type 对象包含了完整的类型信息，包括泛型参数。
+		val listType = object : TypeToken<List<Article>>() {}.type
+		val articles: MutableList<Article> = gson.fromJson(json, listType)
+		return articles
 	}
 }
 

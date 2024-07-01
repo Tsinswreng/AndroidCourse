@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import com.tsinswreng.exp2.svc.User
+import com.tsinswreng.exp2.models.User
 import com.tsinswreng.exp2.tswg.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

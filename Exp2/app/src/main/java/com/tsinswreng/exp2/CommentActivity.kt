@@ -25,7 +25,7 @@ class CommentActivity : AppCompatActivity() {
 
         // 获取传递的书籍标题
         val bookTitle = intent.getStringExtra("BOOK_TITLE")
-
+        //val bookId = intent.getStringExtra("BOOK_ID")
         // 设置RecyclerView
         recyclerViewComments.layoutManager = LinearLayoutManager(this)
         recyclerViewComments.adapter = CommentAdapter(emptyList())

@@ -44,3 +44,10 @@ export class Comment extends Row{
 // 	,b:'1'
 // 	,c:true
 // })
+
+let objArr = [] as Article[]
+let arr:[str,str][] = [] //List<Pair<String, String>>
+for(const obj of objArr){
+	let pair:[str,str] = [obj.title, obj.author]
+	arr.push(pair)
+}
