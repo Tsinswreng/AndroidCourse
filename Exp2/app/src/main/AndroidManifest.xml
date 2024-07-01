@@ -27,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
         <!-- 注册活动 -->
         <activity android:name=".RegisterActivity" />
 
