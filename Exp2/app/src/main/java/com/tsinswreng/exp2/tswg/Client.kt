@@ -4,6 +4,7 @@ import com.google.gson.reflect.TypeToken
 import com.tsinswreng.exp2.models.Article
 import com.tsinswreng.exp2.models.User
 import io.ktor.client.statement.bodyAsText
+import kotlinx.coroutines.Deferred
 
 
 class Client {
@@ -75,6 +76,10 @@ class Client {
 		val listType = object : TypeToken<List<Article>>() {}.type
 		val articles: MutableList<Article> = gson.fromJson(json, listType)
 		return articles
+	}
+	
+	fun getFmtWeather():Deferred<String>{
+		return http.getStr(baseUrl+"/user/fmtWeather")
 	}
 }
 

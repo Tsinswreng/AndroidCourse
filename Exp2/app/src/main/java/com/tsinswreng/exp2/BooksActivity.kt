@@ -6,23 +6,50 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.TextView
+import android.widget.Toast
 import com.tsinswreng.exp2.models.Article
 import kotlinx.coroutines.*
 import com.tsinswreng.exp2.tswg.Client
+import com.tsinswreng.exp2.tswg.then
 
 class BooksActivity : AppCompatActivity() {
     val client = Client()
+    private lateinit var position: Position
+    var latitude = 0.0
+    var longitude = 0.0
+    
     override fun onCreate(savedInstanceState: Bundle?) {
+        val z = this
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_books)
+        
+        position = Position(this)
+        // 请求位置信息
         
         // 获取传递的用户名
         val username = intent.getStringExtra("USERNAME")
         
         // 显示欢迎信息
         val welcomeTextView = findViewById<TextView>(R.id.welcomeTextView)
-        welcomeTextView.text = "欢迎您 $username"
+        val weatherTextView = findViewById<TextView>(R.id.weather)
+        val positionTextView = findViewById<TextView>(R.id.position)
+        welcomeTextView.text = "欢迎您 $username\n"
         welcomeTextView.visibility = TextView.VISIBLE
+        weatherTextView.visibility = TextView.VISIBLE
+        positionTextView.visibility = TextView.VISIBLE
+        position.getLocation { latitude, longitude ->
+            z.latitude = latitude
+            z.longitude = longitude
+            positionTextView.text = "${z.fmtPosition(z.latitude, z.longitude)}"
+            //Toast.makeText(this, "Latitude: $latitude, Longitude: $longitude", Toast.LENGTH_LONG).show()
+//            println("zzzz-")
+//            println(latitude)
+//            println(longitude)
+        }
+        
+        client.getFmtWeather().then { fmt ->
+            weatherTextView.text = "${fmt}"
+        }
         
         // 初始化RecyclerView
         val recyclerViewBooks = findViewById<RecyclerView>(R.id.recyclerViewBooks)
@@ -64,6 +91,20 @@ class BooksActivity : AppCompatActivity() {
 //                "Book 5" to "Author E",
 //                "Book 6" to "Author F"
 //            )
+        }
+    }
+    
+    fun fmtPosition(la:Double, lo:Double):String{
+        val dig = 2
+        return "经度:%.${2}f".format(la) + ("纬度:%.${2}f".format(lo))
+    }
+    
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        
+        // 将权限结果传递给 Position 对象，并重新尝试获取位置信息
+        position.onRequestPermissionsResult(requestCode, grantResults) { latitude, longitude ->
+            Toast.makeText(this, "Latitude: $latitude, Longitude: $longitude", Toast.LENGTH_LONG).show()
         }
     }
 }

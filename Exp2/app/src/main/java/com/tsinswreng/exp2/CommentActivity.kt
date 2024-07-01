@@ -58,8 +58,9 @@ class CommentActivity : AppCompatActivity() {
         return withContext(Dispatchers.IO) {
             // 模拟从服务器获取数据，实际应用中使用网络请求库（如 Retrofit）
             // 以下仅为模拟数据
-            Thread.sleep(2000) // 模拟网络延迟
-            listOf("用户A: 评论1", "用户B: 评论2", "用户C: 评论3")
+            //Thread.sleep(2000) // 模拟网络延迟
+            //listOf("用户A: 评论1", "用户B: 评论2", "用户C: 评论3")
+            listOf()
         }
     }
 
@@ -68,7 +69,7 @@ class CommentActivity : AppCompatActivity() {
             // 模拟网络请求提交评论，实际应用中应使用网络请求库（如 Retrofit）
             return@withContext try {
                 // 假装我们在提交评论
-                Thread.sleep(2000)
+                //Thread.sleep(2000)
                 true
             } catch (e: Exception) {
                 false

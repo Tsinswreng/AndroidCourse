@@ -1,8 +1,9 @@
 import Tempus from "@src/util/Time";
-import { mysqlConneOpt, dbPromise } from "../ENV";
+import { mysqlConneOpt, dbPromise, weatherKey } from "../ENV";
 import { DbErr, MysqlPromise } from "../MySqlPromise";
 import { DbSrc } from "../db/DbSrc";
 import * as Mod from '../model/Models'
+import { Weather } from "@src/model/Weather";
 
 export class UserSvc{
 	protected constructor(){}
@@ -52,6 +53,32 @@ export class UserSvc{
 		})
 		await z.dbSrc.addUser(inst)
 		return true
+	}
+
+	async fetchWeather(){
+		const url = `https://restapi.amap.com/v3/weather/weatherInfo?city=110101&key=${weatherKey}`
+		//console.log(url)
+		const resp = await fetch(url)
+		if (!resp.ok) {
+			throw new Error(`HTTP error! status: ${resp.status}`);
+		}
+		const str = await resp.text()
+		return str
+	}
+
+	fmtWeather(weather:Weather){
+		const l = weather.lives[0]
+		if(l == void 0){
+			return ""
+		}
+		const space = ' '
+		const sb = [] as str[]
+		sb.push(
+			//l.province, l.city, space
+			l.weather, space, l.temperature_float,'°'
+			,space, '风力:',l.windpower
+		)
+		return sb.join('')
 	}
 
 }
