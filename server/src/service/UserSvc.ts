@@ -1,6 +1,8 @@
+import Tempus from "@src/util/Time";
 import { mysqlConneOpt, dbPromise } from "../ENV";
 import { DbErr, MysqlPromise } from "../MySqlPromise";
 import { DbSrc } from "../db/DbSrc";
+import * as Mod from '../model/Models'
 
 export class UserSvc{
 	protected constructor(){}
@@ -38,6 +40,18 @@ export class UserSvc{
 		}else{
 			return ""
 		}
+	}
+
+	async signUp(name:str, pswd:str){
+		const z = this
+		const inst = Mod.User.new({
+			id: NaN
+			,name
+			,password:pswd
+			,ct: Tempus.new()
+		})
+		await z.dbSrc.addUser(inst)
+		return true
 	}
 
 }

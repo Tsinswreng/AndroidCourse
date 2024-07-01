@@ -2,9 +2,6 @@ package com.tsinswreng.exp2.tswg
 import com.google.gson.Gson
 import com.tsinswreng.exp2.svc.User
 import io.ktor.client.statement.bodyAsText
-import kotlinx.coroutines.Deferred
-
-
 
 
 class Client {
@@ -30,13 +27,36 @@ class Client {
 		val json = gson.toJson(map)
 		val got = http.post(baseUrl+"/user/login", json).await()
 		val status = got.status.value
-		println("zzzz")
-		println(status)
+//		println("zzzz")
+//		println(status)
 		if(status != 200){
 			throw RuntimeException("login failed")
 			//return false
 		}
 		 val token = got.bodyAsText()
+		val user = User.currentUser
+		user.userName = name
+		user.pswd = pswd
+		user.token = token
+		return true
+	}
+	
+	suspend fun signUp(name:String, pswd:String):Boolean{
+		val map = mapOf(
+			"name" to name
+			,"pswd" to pswd
+		)
+		val gson = Gson()
+		val json = gson.toJson(map)
+		val got = http.post(baseUrl+"/user/signUp", json).await()
+		val status = got.status.value
+//		println("zzzz")
+//		println(status)
+		if(status != 200){
+			throw RuntimeException("signUp failed")
+			//return false
+		}
+		val token = got.bodyAsText()
 		val user = User.currentUser
 		user.userName = name
 		user.pswd = pswd

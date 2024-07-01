@@ -24,6 +24,15 @@ export class UserCtrl{
 	protected _router = express.Router()
 	get router(){return this._router}
 	protected set router(v){this._router = v}
+
+	isNonNullStr(...strs:any[]){
+		for(const str of strs){
+			if(typeof str !== 'string' || str.length === 0){
+				return false
+			}
+		}
+		return true
+	}
 	
 	async initRouter(){
 		const z = this
@@ -31,13 +40,43 @@ export class UserCtrl{
 			try {
 				const name = req.body['name']
 				const pswd = req.body['pswd']
-				if(typeof name !== 'string' || typeof pswd !== 'string'){
+				if(!z.isNonNullStr(name, pswd)){
 					res.status(403).send('login failed')
 					return 
 				}
 				const ans = await z.svc.login(name, pswd)
 				if(ans === ""){
 					res.status(403).send('login failed')
+					return
+				}
+				res.status(200).send(ans)
+				return
+			} catch (error) {
+				console.error(error)
+			}
+
+		})
+
+		/** 註冊並登錄 */
+		z.router.post('/signUp', async(req,res)=>{
+			try {
+				const name = req.body['name']
+				const pswd = req.body['pswd']
+				// console.log(name)
+				// console.log(pswd) //t
+				if(!z.isNonNullStr(name, pswd)){
+					res.status(403).send('signUp failed')
+					return 
+				}
+
+				const signAns = await z.svc.signUp(name, pswd)
+				if(!signAns){
+					res.status(403).send('signUp failed')
+					return
+				}
+				const ans = await z.svc.login(name, pswd)
+				if(ans === ""){
+					res.status(403).send('signUp failed')
 					return
 				}
 				res.status(200).send(ans)
