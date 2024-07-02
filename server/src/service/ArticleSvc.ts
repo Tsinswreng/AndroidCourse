@@ -30,7 +30,7 @@ export class ArticleSvc{
 		return await z.dbSrc.getAllArticle()
 	}
 
-	async comment(articleId:int, userId:int, score:int, text:str){
+	async addComment(articleId:int, userId:int, score:int, text:str){
 		const z = this
 		const inst = Mod.Comment.new({
 			id: NaN
@@ -42,6 +42,12 @@ export class ArticleSvc{
 		})
 		await z.dbSrc.addComment(inst)
 		return true
+	}
+
+	async seekCommentByArticleId(articleId:int|str){
+		const z = this
+		const ans = await z.dbSrc.seekCommentByArticleId(articleId)
+		return ans
 	}
 	
 }

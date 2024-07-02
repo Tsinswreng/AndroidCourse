@@ -224,6 +224,18 @@ VALUES (?,?,?,?,?)`
 		return ans
 	}
 
+	async seekCommentByArticleId(id:int|str){
+		const z = this
+		const tbl = z.tbls.comment
+		const sql = 
+`SELECT * FROM ${tbl.name} WHERE ${tbl.col.article_id}=?`
+		//console.log(sql)//t
+		const params = id
+		//@ts-ignore
+		const [ans] = await MysqlPromise.query<Row.Comment[]>(z.db, sql, params)
+		return ans
+	}
+
 
 
 

@@ -2,6 +2,7 @@ package com.tsinswreng.exp2.tswg
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.tsinswreng.exp2.models.Article
+import com.tsinswreng.exp2.models.Comment
 import com.tsinswreng.exp2.models.User
 import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.Deferred
@@ -83,7 +84,7 @@ class Client {
 		return http.getStr(baseUrl+"/user/fmtWeather")
 	}
 	
-	suspend fun postComment(articleId:Int, userId:Int, score:Int, text:String){
+	suspend fun postComment(articleId:Int, userId:Int, score:Int, text:String):String{
 		val map = mapOf(
 			"article_id" to articleId
 			,"user_id" to userId
@@ -98,7 +99,15 @@ class Client {
 			//return false
 		}
 		val resp = got.bodyAsText()
+		return resp
 		//return true
+	}
+	
+	suspend fun getCommentByArticleId(id:Int):MutableList<Comment>{
+		val json = http.getStr(baseUrl+"/article/seekComments?article_id=${id}").await()
+		val listType = object : TypeToken<List<Comment>>() {}.type
+		val comments: MutableList<Comment> = gson.fromJson(json, listType)
+		return comments
 	}
 }
 
