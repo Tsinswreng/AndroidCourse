@@ -92,6 +92,7 @@ class RegisterActivity : AppCompatActivity() {
                     dl.setMessage("注册成功")
                     dl.setPositiveButton("登录") { dialog, which ->
                         //z.gotoBookList()
+                        //退出注册页返回登录页
                         z.finish()
                     }
                     dl.show()

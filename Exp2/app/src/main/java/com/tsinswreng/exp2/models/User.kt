@@ -1,6 +1,7 @@
 package com.tsinswreng.exp2.models
 
 class User {
+	//当前用户
 	companion object{
 		var currentUser = User()
 	}

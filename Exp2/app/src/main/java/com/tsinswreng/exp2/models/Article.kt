@@ -7,8 +7,10 @@ data class Article(
 	val content: String,
 	val ct: Long
 ){
+	//当前文章列表
 	companion object{
 		var curArticles = mutableListOf<Article>()
+		//由id线性查找文章
 		fun seekArticleById(id:Int):Article?{
 			for(e in this.curArticles){
 				if(e.id == id){

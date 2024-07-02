@@ -8,16 +8,25 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 
+
+/**
+ * 后台定时服务。统计应用运行时间，每隔固定时间发出气泡提醒
+ */
 class MyService : Service() {
 	
 	private val handler = Handler(Looper.getMainLooper())
+	/** 每隔固定时间发出气泡提醒 */
 	private val interval: Long = 1000*30 // 1min
+	/** 服务运行时间 */
 	protected var totalTime:Long = 0
 	
 	fun updateTotalTime(){
 		this.totalTime += this.interval
 	}
 	
+	/**
+	 * 定时任务
+	 */
 	private val runnable = object : Runnable {
 		override fun run() {
 			performTask()

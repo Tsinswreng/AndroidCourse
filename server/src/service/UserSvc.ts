@@ -33,6 +33,12 @@ export class UserSvc{
 	protected set weather(v){this._weather = v}
 	
 
+	/**
+	 * 
+	 * @param name 
+	 * @param pswd 
+	 * @returns id
+	 */
 	async login(name:str, pswd:str){
 		const z = this
 		const got = await z.dbSrc.seekUserByName(name)

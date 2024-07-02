@@ -85,6 +85,7 @@ export class UserCtrl{
 				return
 			} catch (error) {
 				console.error(error)
+				res.status(400).send('failed')
 			}
 
 		})
@@ -101,7 +102,7 @@ export class UserCtrl{
 			}
 		})
 
-		
+
 		z.router.get('/fmtWeather', async(req,res)=>{
 			try {
 				let str:str

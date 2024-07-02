@@ -23,6 +23,11 @@ class Client {
 	val http = Http()
 	var baseUrl = "http://10.0.2.2:3000"
 	val gson = Gson()
+	
+	/**
+	 *
+	 * 登录
+	 */
 	suspend fun login(name:String, pswd:String):Boolean{
 		val map = mapOf(
 			"name" to name
@@ -38,15 +43,20 @@ class Client {
 			throw RuntimeException("login failed")
 			//return false
 		}
+		//登录成功后将信息写入当前用户对象
 		val idStr = got.bodyAsText()
 		val user = User.currentUser
 		user.userName = name
 		user.pswd = pswd
-		//user.token = token
+		user.token = pswd
 		user.id = idStr.toInt()
 		return true
 	}
 	
+	
+	/**
+	 * 注册
+	 */
 	suspend fun signUp(name:String, pswd:String):Boolean{
 		val map = mapOf(
 			"name" to name
@@ -61,14 +71,19 @@ class Client {
 			throw RuntimeException("signUp failed")
 			//return false
 		}
-		val token = got.bodyAsText()
+		val id = got.bodyAsText()
 		val user = User.currentUser
 		user.userName = name
 		user.pswd = pswd
-		user.token = token
+		user.token = pswd
+		user.id = id.toInt()
 		return true
 	}
 	
+	/**
+	 * 获取所有文章
+	 * @return
+	 */
 	suspend fun getAllArticle():List<Article>{
 		val json = http.getStr(baseUrl+"/article/allArticle").await()
 		//gson.fromJson<List<Article>>(json, Article::class.java)
@@ -80,10 +95,18 @@ class Client {
 		return articles
 	}
 	
+	/**
+	 * 获取格式化后的天气字符串
+	 * 后端向高德地图的天气API发请求https://restapi.amap.com/v3/weather/weatherInfo?city=110101&key=${weatherKey}
+	 * 获取到天气json，解析并格式化后发给安卓前端
+	 */
 	fun getFmtWeather():Deferred<String>{
 		return http.getStr(baseUrl+"/user/fmtWeather")
 	}
 	
+	/**
+	 * 发送文章评论
+	 */
 	suspend fun postComment(articleId:Int, userId:Int, score:Int, text:String):String{
 		val map = mapOf(
 			"article_id" to articleId
@@ -103,6 +126,9 @@ class Client {
 		//return true
 	}
 	
+	/**
+	 * 通过文章id查询评论
+	 */
 	suspend fun getCommentByArticleId(id:Int):MutableList<Comment>{
 		val json = http.getStr(baseUrl+"/article/seekComments?article_id=${id}").await()
 		val listType = object : TypeToken<List<Comment>>() {}.type

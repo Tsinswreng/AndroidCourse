@@ -82,11 +82,13 @@ class LoginActivity : AppCompatActivity() {
 			startActivity(registerIntent)
 		}
 		
+		// 从本机存储 读取缓存的用户名和密码  用制表符分隔
 		val savedUserStr = readFromSharedPreferences("user")
 		if(savedUserStr != null && savedUserStr != ""){
 			val sp = savedUserStr.split("\t")
 			val userName = sp[0]
 			val pswd = sp[1]
+			// 将缓存的用户名和密码填入输入框
 			editTextUsername.setText(userName)
 			editTextPassword.setText(pswd)
 		}
@@ -110,6 +112,7 @@ class LoginActivity : AppCompatActivity() {
 			try {
 				val success = withContext(Dispatchers.IO) {
 					Client.getInstance().login(userName, pswd)
+					// 登录成功后将用户名和密码缓存到本地储存
 					saveToSharedPreferences("user", userName+"\t"+pswd)
 				}
 				runOnUiThread{
@@ -140,9 +143,12 @@ class LoginActivity : AppCompatActivity() {
 		
 	}
 	
+	/**
+	 * 跳转到书架页
+	 */
 	fun gotoBookList(){
 		val booksIntent = Intent(this, BooksActivity::class.java).apply {
-			putExtra("USERNAME", User.currentUser.userName)
+			putExtra("USERNAME", User.currentUser.userName) //带上用户名
 		}
 		startActivity(booksIntent)
 	}
@@ -152,6 +158,9 @@ class LoginActivity : AppCompatActivity() {
 		job.cancel()
 	}
 	
+	/**
+	 * 将字符串键值对缓存到本地储存
+	 */
 	fun saveToSharedPreferences(key: String, value: String) {
 		val sharedPreferences = getSharedPreferences("MyAppPreferences", MODE_PRIVATE)
 		val editor = sharedPreferences.edit()
@@ -159,6 +168,9 @@ class LoginActivity : AppCompatActivity() {
 		editor.apply() // 使用apply()方法会在后台线程中保存数据，commit()方法则在主线程中保存数据
 	}
 	
+	/**
+	 * 从本地储存读取键值对
+	 */
 	private fun readFromSharedPreferences(key: String): String? {
 		val sharedPreferences = getSharedPreferences("MyAppPreferences", MODE_PRIVATE)
 		return sharedPreferences.getString(key, "") // 第二个参数是默认值，当key不存在时返回
