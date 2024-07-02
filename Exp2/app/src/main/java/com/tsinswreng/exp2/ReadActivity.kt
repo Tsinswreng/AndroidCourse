@@ -50,8 +50,10 @@ class ReadActivity : AppCompatActivity() {
 
         // 评论按钮点击事件
         findViewById<Button>(R.id.commentButton).setOnClickListener {
+            val z = this
             val commentIntent = Intent(this, CommentActivity::class.java).apply {
-                putExtra("BOOK_TITLE", bookTitle)
+                //putExtra("BOOK_TITLE", bookTitle)
+                putExtra("BOOK_ID", z.article.id.toString())
             }
             startActivity(commentIntent)
         }

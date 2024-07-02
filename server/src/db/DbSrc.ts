@@ -199,6 +199,18 @@ export class DbSrc{
 		return await MysqlPromise.query(z.db, sql, params)
 	}
 
+	async addComment(inst:Mod.Comment){
+		const z = this
+		const tbl = z.tbls.comment
+		const c = tbl.col
+		const sql = 
+`INSERT INTO ${tbl.name} (${c.article_id}, ${c.user_id}, ${c.score}, ${c.text}, ${c.ct})
+VALUES (?,?,?,?,?)`
+		const r = inst.toRow()
+		const params = [r.article_id, r.user_id, r.score, r.text, r.ct]
+		return await MysqlPromise.query(z.db, sql, params)
+	}
+
 	/**
 	 * 帶正文
 	 * @returns 
@@ -212,15 +224,18 @@ export class DbSrc{
 		return ans
 	}
 
-	/**
-	 * 不帶正文
-	 */
-	async getAllArticleInfo(){
 
-	}
 
-	async seekArticleById(){
-		
-	}
+
+	// /**
+	//  * 不帶正文
+	//  */
+	// async getAllArticleInfo(){
+
+	// }
+
+	// async seekArticleById(){
+
+	// }
 
 }

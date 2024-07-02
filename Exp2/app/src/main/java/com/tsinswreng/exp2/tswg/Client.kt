@@ -37,11 +37,12 @@ class Client {
 			throw RuntimeException("login failed")
 			//return false
 		}
-		 val token = got.bodyAsText()
+		val idStr = got.bodyAsText()
 		val user = User.currentUser
 		user.userName = name
 		user.pswd = pswd
-		user.token = token
+		//user.token = token
+		user.id = idStr.toInt()
 		return true
 	}
 	
@@ -80,6 +81,24 @@ class Client {
 	
 	fun getFmtWeather():Deferred<String>{
 		return http.getStr(baseUrl+"/user/fmtWeather")
+	}
+	
+	suspend fun postComment(articleId:Int, userId:Int, score:Int, text:String){
+		val map = mapOf(
+			"article_id" to articleId
+			,"user_id" to userId
+			,"score" to score
+			,"text" to text
+		)
+		val json = gson.toJson(map)
+		val got = http.post(baseUrl+"/article/addComment", json).await()
+		val status = got.status.value
+		if(status != 200){
+			throw RuntimeException("comment failed")
+			//return false
+		}
+		val resp = got.bodyAsText()
+		//return true
 	}
 }
 

@@ -8,11 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.*
-
+import com.tsinswreng.exp2.models.Article
+import com.tsinswreng.exp2.models.User
+import com.tsinswreng.exp2.tswg.Client
 class CommentActivity : AppCompatActivity() {
 
     private lateinit var editTextComment: EditText
     private lateinit var recyclerViewComments: RecyclerView
+    protected var article_id:Int=0
+    protected lateinit var article:Article
+    protected val client = Client.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +29,10 @@ class CommentActivity : AppCompatActivity() {
         recyclerViewComments = findViewById(R.id.recyclerViewComments)
 
         // 获取传递的书籍标题
-        val bookTitle = intent.getStringExtra("BOOK_TITLE")
+        val idStr = intent.getStringExtra("BOOK_ID")
+        this.article_id = idStr!!.toInt()
+        this.article = Article.seekArticleById(article_id)!!
+        val bookTitle = article.title
         //val bookId = intent.getStringExtra("BOOK_ID")
         // 设置RecyclerView
         recyclerViewComments.layoutManager = LinearLayoutManager(this)
@@ -40,7 +48,7 @@ class CommentActivity : AppCompatActivity() {
         buttonSubmitComment.setOnClickListener {
             val comment = editTextComment.text.toString()
             GlobalScope.launch(Dispatchers.Main) {
-                val success = submitCommentToServer(bookTitle, comment)
+                val success = submitCommentToServer(comment)
                 if (success) {
                     Toast.makeText(this@CommentActivity, "评论提交成功", Toast.LENGTH_SHORT).show()
                     // 刷新评论区
@@ -64,14 +72,20 @@ class CommentActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun submitCommentToServer(bookTitle: String?, comment: String): Boolean {
+    private suspend fun submitCommentToServer(comment: String): Boolean {
+        val z = this
+        val book = z.article
         return withContext(Dispatchers.IO) {
-            // 模拟网络请求提交评论，实际应用中应使用网络请求库（如 Retrofit）
             return@withContext try {
-                // 假装我们在提交评论
-                //Thread.sleep(2000)
+                client.postComment(
+                    book.id
+                    , User.currentUser.id
+                    , 100
+                    , comment
+                )
                 true
             } catch (e: Exception) {
+                System.err.println(e)
                 false
             }
         }

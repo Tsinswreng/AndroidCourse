@@ -23,14 +23,31 @@ class BooksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_books)
         
-        position = Position(this)
-        // 请求位置信息
         
         // 获取传递的用户名
         val username = intent.getStringExtra("USERNAME")
-        
         // 显示欢迎信息
         val welcomeTextView = findViewById<TextView>(R.id.welcomeTextView)
+        // 初始化RecyclerView
+        val recyclerViewBooks = findViewById<RecyclerView>(R.id.recyclerViewBooks)
+        recyclerViewBooks.layoutManager = GridLayoutManager(this, 2)
+        // 加载书籍列表数据
+        GlobalScope.launch(Dispatchers.Main) {
+            val booksList = fetchBooksListFromServer()
+            recyclerViewBooks.adapter = BookAdapter(booksList) { bookId ->
+                // 书籍点击事件，跳转到 ReadActivity
+                val readIntent = Intent(this@BooksActivity, ReadActivity::class.java).apply {
+//                    println("zzzz")
+//                    println(bookId)
+                    putExtra("BOOK_ID", bookId.toString())
+                    //putExtra("BOOK_TITLE", bookTitle)
+                }
+                startActivity(readIntent)
+            }
+        }
+        
+        position = Position(this)
+        // 请求位置信息
         val weatherTextView = findViewById<TextView>(R.id.weather)
         val positionTextView = findViewById<TextView>(R.id.position)
         welcomeTextView.text = "欢迎您 $username\n"
@@ -49,25 +66,6 @@ class BooksActivity : AppCompatActivity() {
         
         client.getFmtWeather().then { fmt ->
             weatherTextView.text = "${fmt}"
-        }
-        
-        // 初始化RecyclerView
-        val recyclerViewBooks = findViewById<RecyclerView>(R.id.recyclerViewBooks)
-        recyclerViewBooks.layoutManager = GridLayoutManager(this, 2)
-        
-        // 加载书籍列表数据
-        GlobalScope.launch(Dispatchers.Main) {
-            val booksList = fetchBooksListFromServer()
-            recyclerViewBooks.adapter = BookAdapter(booksList) { bookId ->
-                // 书籍点击事件，跳转到 ReadActivity
-                val readIntent = Intent(this@BooksActivity, ReadActivity::class.java).apply {
-//                    println("zzzz")
-//                    println(bookId)
-                    putExtra("BOOK_ID", bookId.toString())
-                    //putExtra("BOOK_TITLE", bookTitle)
-                }
-                startActivity(readIntent)
-            }
         }
     }
     

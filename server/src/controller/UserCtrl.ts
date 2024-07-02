@@ -101,9 +101,15 @@ export class UserCtrl{
 			}
 		})
 
+		
 		z.router.get('/fmtWeather', async(req,res)=>{
 			try {
-				const str = await z.svc.fetchWeather()
+				let str:str
+				if(z.svc.weather !== ""){
+					str = z.svc.weather
+				}else{
+					str = await z.svc.fetchWeather()
+				}
 				const inst = JSON.parse(str) as Weather
 				const ans = z.svc.fmtWeather(inst)
 				res.status(200).send(ans)

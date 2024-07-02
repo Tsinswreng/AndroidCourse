@@ -5,6 +5,7 @@ import { DbSrc } from "../db/DbSrc";
 import * as Mod from '../model/Models'
 import { Weather } from "@src/model/Weather";
 
+
 export class UserSvc{
 	protected constructor(){}
 	protected async __Init__(...args: Parameters<typeof UserSvc.New>){
@@ -12,6 +13,7 @@ export class UserSvc{
 		const db = await dbPromise
 		const dbSrc = DbSrc.new(db)
 		z.dbSrc = dbSrc
+		z.preloadWeatherJson().then()
 		return z
 	}
 
@@ -26,20 +28,36 @@ export class UserSvc{
 	get dbSrc(){return this._dbSrc}
 	protected set dbSrc(v){this._dbSrc = v}
 
+	protected _weather:str = ""
+	get weather(){return this._weather}
+	protected set weather(v){this._weather = v}
+	
+
 	async login(name:str, pswd:str){
 		const z = this
-		// const name = req.body??['name']
-		// const pwsd = req.body??['pwsd']
-		// console.log(name)
-		// console.log(pwsd)
-		// console.log(typeof name)
 		const got = await z.dbSrc.seekUserByName(name)
 		const user = got[0]
 		if(user.password === pswd){
 			//登錄成功
-			return user.password
+			return user.id+''
 		}else{
 			return ""
+		}
+	}
+
+	async preloadWeatherJson(){
+		const z = this
+		for(let i = 0; i < 20; i++){
+			try {
+				const got = await z.fetchWeather()
+				if(got != void 0 && got.length > 0){
+					z.weather = got
+					console.log('load weather ok')
+					break
+				}
+			} catch (err) {
+				continue
+			}
 		}
 	}
 

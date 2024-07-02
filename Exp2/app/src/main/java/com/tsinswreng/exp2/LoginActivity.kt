@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
 //			// 点击取消按钮后的操作
 //		}
 		builder.create().show()
+		
 	}
 	
 	
@@ -50,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		this.init()
 		setContentView(R.layout.activity_login)
-		
+
 		val editTextUsername = findViewById<EditText>(R.id.editTextUsername)
 		val editTextPassword = findViewById<EditText>(R.id.editTextPassword)
 		val buttonLogin = findViewById<Button>(R.id.buttonLogin)
