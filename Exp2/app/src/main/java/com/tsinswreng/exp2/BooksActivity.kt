@@ -2,6 +2,8 @@ package com.tsinswreng.exp2
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,12 +13,27 @@ import com.tsinswreng.exp2.models.Article
 import kotlinx.coroutines.*
 import com.tsinswreng.exp2.tswg.Client
 import com.tsinswreng.exp2.tswg.then
+import kotlin.system.exitProcess
 
 class BooksActivity : AppCompatActivity() {
     val client = Client()
     private lateinit var position: Position
     var latitude = 0.0
     var longitude = 0.0
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            exitProcess(0)
+        }
+        
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show()
+        
+        Handler(Looper.getMainLooper()).postDelayed({
+            doubleBackToExitPressedOnce = false
+        }, 2000) // 2秒后重置
+    }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         val z = this

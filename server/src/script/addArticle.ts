@@ -4,8 +4,8 @@ import { DbSrc } from "../db/DbSrc";
 import * as fs from 'fs'
 import * as Mod from '../model/Models'
 import Tempus from "../util/Time";
-const title = '祭十二郎文'
-const author = '韩愈'
+const title = '兰停集序'
+const author = '王羲之'
 async function main(){
 	try {
 		const db = await MysqlPromise.connect(mysqlConneOpt)
