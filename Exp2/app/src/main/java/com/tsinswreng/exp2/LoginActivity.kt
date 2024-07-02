@@ -64,6 +64,15 @@ class LoginActivity : AppCompatActivity() {
 			startActivity(registerIntent)
 		}
 		
+		val savedUserStr = readFromSharedPreferences("user")
+		if(savedUserStr != null && savedUserStr != ""){
+			val sp = savedUserStr.split("\t")
+			val userName = sp[0]
+			val pswd = sp[1]
+			editTextUsername.setText(userName)
+			editTextPassword.setText(pswd)
+		}
+
 		// 登录按钮点击事件
 		buttonLogin.setOnClickListener  {
 			val username = editTextUsername.text.toString()
@@ -83,6 +92,7 @@ class LoginActivity : AppCompatActivity() {
 			try {
 				val success = withContext(Dispatchers.IO) {
 					Client.getInstance().login(userName, pswd)
+					saveToSharedPreferences("user", userName+"\t"+pswd)
 				}
 				runOnUiThread{
 					gotoBookList() // 页面跳转
@@ -123,5 +133,18 @@ class LoginActivity : AppCompatActivity() {
 		super.onDestroy()
 		job.cancel()
 	}
+	
+	fun saveToSharedPreferences(key: String, value: String) {
+		val sharedPreferences = getSharedPreferences("MyAppPreferences", MODE_PRIVATE)
+		val editor = sharedPreferences.edit()
+		editor.putString(key, value)
+		editor.apply() // 使用apply()方法会在后台线程中保存数据，commit()方法则在主线程中保存数据
+	}
+	
+	private fun readFromSharedPreferences(key: String): String? {
+		val sharedPreferences = getSharedPreferences("MyAppPreferences", MODE_PRIVATE)
+		return sharedPreferences.getString(key, "") // 第二个参数是默认值，当key不存在时返回
+	}
+	
 	
 }

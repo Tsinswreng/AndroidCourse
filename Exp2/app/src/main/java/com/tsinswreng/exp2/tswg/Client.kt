@@ -109,6 +109,8 @@ class Client {
 		val comments: MutableList<Comment> = gson.fromJson(json, listType)
 		return comments
 	}
+	
+
 }
 
 /*
