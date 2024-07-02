@@ -10,19 +10,83 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         android:layout_above="@+id/welcomeTextView"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+    />
 
-    <!-- Welcome message -->
+
+<!--     Welcome message -->
     <TextView
         android:id="@+id/welcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:text="Welcome abc"
+        android:text=""
         android:padding="16dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="gone"/> <!-- Initially hidden, will be shown on login -->
+        android:textColor="@color/white"
+        android:visibility="gone"
+    />
+
+
+    <TextView
+        android:id="@+id/weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text=""
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:visibility="gone"
+    />
+
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/weather"
+        android:layout_marginBottom="16dp"
+        android:text=""
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:visibility="gone"
+    />
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/welcomeTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:text="Welcome abc"-->
+<!--        android:padding="16dp"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:background="#80FFFFFF"-->
+<!--        android:visibility="visible"-->
+<!--    />-->
+
+    <!-- Welcome message -->
+<!--    <TextView-->
+<!--        android:id="@+id/welcomeTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        -->
+<!--        android:background="#80FFFFFF"-->
+<!--        android:padding="16dp"-->
+<!--        android:text="Welcome abc"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:visibility="visible" />-->
 
 </RelativeLayout>

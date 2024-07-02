@@ -16,10 +16,19 @@ import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.contentType
 
+/** 简易封装的网络请求类 */
 class Http {
 	val client = HttpClient(CIO)
+	/**
+	 * 协程作用域 Dispatchers.IO和SupervisorJob 合并到一个 CoroutineContext 中
+	 * 这个作用域内启动的所有协程将会在 I/O 密集型线程池中执行，并且即使某个协程失败，其他协程也能继续执行
+	 */
 	private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-	fun strGet(url: String): Deferred<String> {
+	
+	/**
+	 *
+	 */
+	fun getStr(url: String): Deferred<String> {
 		return scope.async(Dispatchers.IO) {
 			try {
 				val response = client.get(url)
@@ -87,6 +96,9 @@ class Http {
 	}
 }
 
+/**
+ * 类似js的Promise.prototype.then
+ */
 fun <T> Deferred<T>.then(context: CoroutineContext = Dispatchers.Main, onFulfilled: (T) -> Unit): Deferred<T> {
 	return this.apply {
 		invokeOnCompletion { throwable ->
@@ -99,6 +111,10 @@ fun <T> Deferred<T>.then(context: CoroutineContext = Dispatchers.Main, onFulfill
 	}
 }
 
+
+/**
+ * 类似js的Promise.prototype.catch
+ */
 fun <T> Deferred<T>.catch(context: CoroutineContext = Dispatchers.Main, onRejected: (Throwable) -> Unit): Deferred<T> {
 	return this.apply {
 		invokeOnCompletion { throwable ->

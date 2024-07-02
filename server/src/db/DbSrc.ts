@@ -199,6 +199,22 @@ export class DbSrc{
 		return await MysqlPromise.query(z.db, sql, params)
 	}
 
+	async addComment(inst:Mod.Comment){
+		const z = this
+		const tbl = z.tbls.comment
+		const c = tbl.col
+		const sql = 
+`INSERT INTO ${tbl.name} (${c.article_id}, ${c.user_id}, ${c.score}, ${c.text}, ${c.ct})
+VALUES (?,?,?,?,?)`
+		const r = inst.toRow()
+		const params = [r.article_id, r.user_id, r.score, r.text, r.ct]
+		return await MysqlPromise.query(z.db, sql, params)
+	}
+
+	/**
+	 * 帶正文
+	 * @returns 
+	 */
 	async getAllArticle(){
 		const z = this
 		const tbl = z. tbls.article
@@ -207,5 +223,31 @@ export class DbSrc{
 		const [ans ] = await MysqlPromise.query<Row.Article[]>(z.db, sql)
 		return ans
 	}
+
+	async seekCommentByArticleId(id:int|str){
+		const z = this
+		const tbl = z.tbls.comment
+		const sql = 
+`SELECT * FROM ${tbl.name} WHERE ${tbl.col.article_id}=?`
+		//console.log(sql)//t
+		const params = id
+		//@ts-ignore
+		const [ans] = await MysqlPromise.query<Row.Comment[]>(z.db, sql, params)
+		return ans
+	}
+
+
+
+
+	// /**
+	//  * 不帶正文
+	//  */
+	// async getAllArticleInfo(){
+
+	// }
+
+	// async seekArticleById(){
+
+	// }
 
 }

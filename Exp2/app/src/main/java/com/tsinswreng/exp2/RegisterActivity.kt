@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import com.tsinswreng.exp2.svc.User
+import com.tsinswreng.exp2.models.User
 import com.tsinswreng.exp2.tswg.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -90,8 +90,10 @@ class RegisterActivity : AppCompatActivity() {
                     val dl = z.alertDialogMk
                     dl.setTitle("")
                     dl.setMessage("注册成功")
-                    dl.setPositiveButton("登入主页") { dialog, which ->
-                        z.gotoBookList()
+                    dl.setPositiveButton("登录") { dialog, which ->
+                        //z.gotoBookList()
+                        //退出注册页返回登录页
+                        z.finish()
                     }
                     dl.show()
                 }

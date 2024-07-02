@@ -1,5 +1,7 @@
+import { weatherKey } from "@src/ENV"
 import { UserSvc } from "../service/UserSvc"
 import express from 'express'
+import { Weather } from "@src/model/Weather"
 
 export class UserCtrl{
 	protected constructor(){}
@@ -83,9 +85,41 @@ export class UserCtrl{
 				return
 			} catch (error) {
 				console.error(error)
+				res.status(400).send('failed')
 			}
 
 		})
+
+		//https://restapi.amap.com/v3/weather/weatherInfo?city=110101&key=
+		//用魔法會導致連接超時
+		z.router.get('/weather', async(req,res)=>{
+			try {
+				const str = await z.svc.fetchWeather()
+				res.send(str)
+			} catch (err) {
+				console.error(err)
+				res.status(500).send('failed')
+			}
+		})
+
+
+		z.router.get('/fmtWeather', async(req,res)=>{
+			try {
+				let str:str
+				if(z.svc.weather !== ""){
+					str = z.svc.weather
+				}else{
+					str = await z.svc.fetchWeather()
+				}
+				const inst = JSON.parse(str) as Weather
+				const ans = z.svc.fmtWeather(inst)
+				res.status(200).send(ans)
+			} catch (err) {
+				console.error(err)
+				res.status(500).send('')
+			}
+		})
+
 
 
 		z.router.get('/test', (req,res)=>{

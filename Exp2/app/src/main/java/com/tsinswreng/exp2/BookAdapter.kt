@@ -5,8 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.tsinswreng.exp2.models.Article
 
-class BookAdapter(private val booksList: List<Pair<String, String>>, private val onClick: (String) -> Unit) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+
+class BookAdapter(
+    private val booksList: List<Article>,
+    private val onClick: (Int) -> Unit
+) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -15,21 +20,29 @@ class BookAdapter(private val booksList: List<Pair<String, String>>, private val
     }
     
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val (bookTitle, bookAuthor) = booksList[position]
-        holder.bookTitle.text = bookTitle
-        holder.bookAuthor.text = bookAuthor
+        val article = booksList[position]
+        holder.bind(article)
     }
     
     override fun getItemCount() = booksList.size
     
-    class BookViewHolder(itemView: View, val onClick: (String) -> Unit) : RecyclerView.ViewHolder(itemView) {
-        val bookTitle: TextView = itemView.findViewById(R.id.bookTitle)
-        val bookAuthor: TextView = itemView.findViewById(R.id.bookAuthor)
+    class BookViewHolder(itemView: View, val onClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+        private val bookTitle: TextView = itemView.findViewById(R.id.bookTitle)
+        private val bookAuthor: TextView = itemView.findViewById(R.id.bookAuthor)
+        private var currentArticle: Article? = null
         
         init {
             itemView.setOnClickListener {
-                onClick(bookTitle.text.toString())
+                currentArticle?.let { article ->
+                    onClick(article.id)
+                }
             }
+        }
+        
+        fun bind(article: Article) {
+            currentArticle = article
+            bookTitle.text = article.title
+            bookAuthor.text = article.author
         }
     }
 }

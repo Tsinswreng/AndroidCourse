@@ -11,6 +11,9 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
+/**
+ * 简易封装的定位类、获取经纬度
+ */
 class Position(private val activity: Activity) {
 	
 	private lateinit var locationManager: LocationManager
@@ -24,6 +27,7 @@ class Position(private val activity: Activity) {
 		locationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 	}
 	
+	// 获取位置的方法，如果没有权限则请求权限，有权限则启动位置更新
 	fun getLocation(callback: (latitude: Double, longitude: Double) -> Unit) {
 		if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
@@ -32,6 +36,7 @@ class Position(private val activity: Activity) {
 		}
 	}
 	
+	// 启动位置更新，并通过回调返回位置信息
 	private fun startLocationUpdates(callback: (latitude: Double, longitude: Double) -> Unit) {
 		locationListener = object : LocationListener {
 			override fun onLocationChanged(location: Location) {
@@ -52,6 +57,7 @@ class Position(private val activity: Activity) {
 		}
 	}
 	
+	// 处理权限请求结果，如果权限被授予则重新尝试获取位置信息
 	fun onRequestPermissionsResult(requestCode: Int, grantResults: IntArray, callback: (latitude: Double, longitude: Double) -> Unit) {
 		if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
 			if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -60,6 +66,7 @@ class Position(private val activity: Activity) {
 		}
 	}
 	
+	// 停止位置更新
 	private fun stopLocationUpdates() {
 		if (::locationManager.isInitialized && ::locationListener.isInitialized) {
 			locationManager.removeUpdates(locationListener)
