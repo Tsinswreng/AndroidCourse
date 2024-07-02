@@ -25,7 +25,7 @@ class MyService : Service() {
 			updateTotalTime()
 			Toast.makeText(
 				this@MyService
-				, "您已阅读${totalTime*1.0/60000}分钟,请注意用眼"
+				, "您已使用${totalTime*1.0/60000}分钟,请注意用眼"
 				, Toast.LENGTH_LONG
 			).show()
 		}

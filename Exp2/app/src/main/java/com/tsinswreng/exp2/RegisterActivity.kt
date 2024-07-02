@@ -90,8 +90,9 @@ class RegisterActivity : AppCompatActivity() {
                     val dl = z.alertDialogMk
                     dl.setTitle("")
                     dl.setMessage("注册成功")
-                    dl.setPositiveButton("登入主页") { dialog, which ->
-                        z.gotoBookList()
+                    dl.setPositiveButton("登录") { dialog, which ->
+                        //z.gotoBookList()
+                        z.finish()
                     }
                     dl.show()
                 }
