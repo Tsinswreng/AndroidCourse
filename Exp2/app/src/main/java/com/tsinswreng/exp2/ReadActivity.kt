@@ -17,7 +17,6 @@ class ReadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
-
         // 获取控件引用
         chapterTitle = findViewById(R.id.chapterTitle)
         textViewContent = findViewById(R.id.textViewContent)

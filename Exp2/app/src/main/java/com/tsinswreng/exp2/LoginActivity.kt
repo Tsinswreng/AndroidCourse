@@ -1,5 +1,7 @@
 package com.tsinswreng.exp2
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
 	protected lateinit var alertDialogMk: AlertDialog.Builder
 	protected var client = Client.getInstance()
 	private lateinit var job: Job
+	private lateinit var receiver: BroadcastReceiver
 	
 	val coroutineContext: CoroutineContext
 		get() = Dispatchers.Main + job
@@ -28,6 +31,21 @@ class LoginActivity : AppCompatActivity() {
 	protected fun init(){
 		this.alertDialogMk = AlertDialog.Builder(this)
 		this.job = Job()
+		receiver = object : BroadcastReceiver() {
+			override fun onReceive(context: Context?, intent: Intent?) {
+				if (intent != null) {
+					when (intent.action) {
+//						Intent.ACTION_SCREEN_ON -> {
+//							println("zzzz")
+//							alert("", "欢迎回来")
+//						}
+//						Intent.ACTION_AIRPLANE_MODE_CHANGED -> {
+//							alert("", "飞行模式变更。")
+//						}
+					}
+				}
+			}
+		}
 	}
 	/** 简易封装的弹窗 */
 	fun alert(title:String, msg:String){
