@@ -34,20 +34,25 @@ export class UserSvc{
 	
 
 	/**
-	 * 
-	 * @param name 
-	 * @param pswd 
+	 * 登录服务
+	 * @param name 用户名
+	 * @param pswd 密码
 	 * @returns id
 	 */
 	async login(name:str, pswd:str){
 		const z = this
-		const got = await z.dbSrc.seekUserByName(name)
-		const user = got[0]
+		const got = await z.dbSrc.seekUserByName(name) // 通过用户名查询用户
+		const user = got[0] //取用户简单对象数组的首元素
+		//判断该用户是否为空。若为空则抛出错误
+		if(user == void 0){
+			throw new Error(`${name}\nno such user`)
+		}
+		//校验查询到的用户的密码与传入的密码是否匹配。若匹配则返回用户id
 		if(user.password === pswd){
 			//登錄成功
 			return user.id+''
 		}else{
-			return ""
+			return "" // 若不匹配则返回空字符串
 		}
 	}
 
@@ -79,14 +84,21 @@ export class UserSvc{
 		return true
 	}
 
+
+	/**
+	 * 使用高德地图的天气API获取天气
+	 * @returns 
+	 */
 	async fetchWeather(){
+		//url、 ${weatherKey}为自己申请的key 、城市代码110101代表北京东城区
 		const url = `https://restapi.amap.com/v3/weather/weatherInfo?city=110101&key=${weatherKey}`
 		//console.log(url)
+		//用内置的fetch函数发送请求
 		const resp = await fetch(url)
 		if (!resp.ok) {
 			throw new Error(`HTTP error! status: ${resp.status}`);
 		}
-		const str = await resp.text()
+		const str = await resp.text() //返回响应的json字符串
 		return str
 	}
 

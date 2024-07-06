@@ -38,25 +38,38 @@ export class UserCtrl{
 	
 	async initRouter(){
 		const z = this
+
+		/**
+		 * 登录接口
+		 * url: <挂载点>/login
+		 * 请求方法:post
+		 */
 		z.router.post('/login', async(req,res)=>{
 			try {
+				//从请求体中解析请求参数 、包括用户名和密码
 				const name = req.body['name']
 				const pswd = req.body['pswd']
+				// 判空
 				if(!z.isNonNullStr(name, pswd)){
+					// 状态码403, 返回登录失败字符串
 					res.status(403).send('login failed')
 					return 
 				}
+				// 调用服务层的登录函数，获取用户id
 				const ans = await z.svc.login(name, pswd)
+				// 检验登录是否成功
 				if(ans === ""){
 					res.status(403).send('login failed')
 					return
 				}
+				// 登录成功，状态码200, 返回用户id
 				res.status(200).send(ans)
 				return
 			} catch (error) {
-				console.error(error)
+				// 出现错误，登录失败
+				res.status(400).send('login failed')
+				console.error(error) //打印错误信息到控制台
 			}
-
 		})
 
 		/** 註冊並登錄 */

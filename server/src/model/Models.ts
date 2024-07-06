@@ -72,7 +72,11 @@ export class BaseFactory<
 	}
 }
 
-class UserInst extends BaseInst<Row.User>{
+
+/**
+ * 用户 程序对象
+ */
+class UserInst extends BaseInst<Row.User>{ //继承基实例，将用户简单对象作
 	override get Row(){return Row.User}
 	id:int
 	name:str
@@ -84,6 +88,9 @@ class UserInst extends BaseInst<Row.User>{
 	}
 }
 
+/**
+ * 用户工厂
+ */
 class UserFactory extends BaseFactory<UserInst, Row.User>{
 	override Row = Row.User
 	//@ts-ignore
@@ -156,5 +163,7 @@ class CommentFactory extends BaseFactory<CommentInst, Row.Comment>{
 
 export const Comment = CommentFactory.new() as CommentFactory
 export type Comment = CommentInst
+
+
 
 

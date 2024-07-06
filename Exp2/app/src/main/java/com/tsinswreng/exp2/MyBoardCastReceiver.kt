@@ -15,7 +15,6 @@ class MyBroadcastReceiver : BroadcastReceiver() {
 		if (intent != null) {
 			when (intent.action) {
 //				Intent.ACTION_SCREEN_ON -> {
-//
 //				}
 				Intent.ACTION_BATTERY_LOW -> {
 					Toast.makeText(context, "电池电量低", Toast.LENGTH_LONG)

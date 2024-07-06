@@ -26,16 +26,20 @@ export class Server{
 	protected _port = 3000
 	get port(){return this._port}
 	set port(v){this._port = v}
-	
+
+	/**
+	 * 初始化路由
+	 */
 	async initRoutes(){
 		const z = this
+		// 获取毫秒级unix时间戳，测试服务能否正常运作
 		z.app.get('/unixMills', (req, res)=>{
 			res.send(Tempus.toISO8601(Tempus.new()))
 		})
-		const userCtrl = await UserCtrl.New()
-		z.app.use('/user', userCtrl.router);
-		z.app.use('/article', (await ArticleCtrl.New()).router)
-		
+
+		const userCtrl = await UserCtrl.New()//用户控制器
+		z.app.use('/user', userCtrl.router);//将用户控制器的路由挂载到/user下
+		z.app.use('/article', (await ArticleCtrl.New()).router) //将文章控制器的路由挂载到/article下
 	}
 
 	initUse(){

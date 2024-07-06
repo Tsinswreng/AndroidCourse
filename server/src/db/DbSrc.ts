@@ -78,8 +78,8 @@ class InitSql{
 	
 	mkTbl_user(){
 		const z = this
-		const tbl = z.tbls.user
-		const c = tbl.col
+		const tbl = z.tbls.user //user表对象
+		const c = tbl.col //列名
 		const ans = 
 `CREATE TABLE IF NOT EXISTS ${tbl.name}(
 	${c.id} INT AUTO_INCREMENT PRIMARY KEY
@@ -166,26 +166,38 @@ export class DbSrc{
 	}
 
 
+
+	/**
+	 * 添加用户
+	 * @param inst 用户的程序模型实例
+	 * @returns 
+	 */
 	async addUser(inst:Mod.User){
 		const z = this
-		const tbl = z.tbls.user
-		const c = tbl.col
+		const tbl = z.tbls.user // 用户表对象
+		const c = tbl.col //表中各列的列名
 		const sql = 
-`INSERT INTO ${tbl.name} (${c.name}, ${c.password}, ${c.ct}) VALUES(?,?,?)`
-		const row = inst.toRow()
-		const params = [row.name, row.password, row.ct]
-		return await MysqlPromise.query(z.db, sql, params)
+`INSERT INTO ${tbl.name} (${c.name}, ${c.password}, ${c.ct}) VALUES(?,?,?)` //插入sql，用问号作参数化查询，防止sql注入攻击
+		const row = inst.toRow() //程序模型实例转简单对象
+		const params = [row.name, row.password, row.ct] // 查询参数
+		return await MysqlPromise.query(z.db, sql, params) //执行sql并传递参数
 	}
 
+	/**
+	 * 通过用户名查询用户，返回简单用户对象数组。
+	 * 实际上，由于name有unique约束，故数组中最多只有一个元素。
+	 * @param name 用户名
+	 * @returns 
+	 */
 	async seekUserByName(name:str){
 		const z = this
-		const tbl = z.tbls.user
-		const c = tbl.col
+		const tbl = z.tbls.user //用户表对象
+		const c = tbl.col //列名
 		const sql = 
-`SELECT * FROM ${tbl.name} WHERE ${c.name} = ?`
-		const params = [name]
-		const [row, ] = await MysqlPromise.query<Row.User[]>(z.db, sql, params)
-		return row
+`SELECT * FROM ${tbl.name} WHERE ${c.name} = ?` //查询sql
+		const params = [name] //查询参数
+		const [row, ] = await MysqlPromise.query<Row.User[]>(z.db, sql, params) // 执行sql
+		return row //返回查询结果
 	}
 
 	async addArticle(inst:Mod.Article){

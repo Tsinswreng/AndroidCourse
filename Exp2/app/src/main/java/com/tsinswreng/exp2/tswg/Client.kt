@@ -29,20 +29,23 @@ class Client {
 	 * 登录
 	 */
 	suspend fun login(name:String, pswd:String):Boolean{
+		// 创建请求体
 		val map = mapOf(
 			"name" to name
 			,"pswd" to pswd
 		)
-		val gson = Gson()
-		val json = gson.toJson(map)
+		val gson = Gson() // 创建gson对象
+		val json = gson.toJson(map) // 将请求体转json
+		// 发送网络请求 传递json 作请求参数
+		// baseUrl为10.0.2.2, 为android studio上的虚拟机中 宿主机的IP地址。
+		// http为基于ktor库简易封装的网络请求类
 		val got = http.post(baseUrl+"/user/login", json).await()
-		val status = got.status.value
-//		println("zzzz")
-//		println(status)
+		val status = got.status.value //获取响应的状态码
+		//状态码不等于200即表示登录失败，抛出异常
 		if(status != 200){
 			throw RuntimeException("login failed")
-			//return false
 		}
+		
 		//登录成功后将信息写入当前用户对象
 		val idStr = got.bodyAsText()
 		val user = User.currentUser
